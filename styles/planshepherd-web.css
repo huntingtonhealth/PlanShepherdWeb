@@ -10,15 +10,15 @@
 /* custom fonts */
 @font-face {
 	font-family: 'avenir';
-	src: url("../../../fonts/Avenir.ttc");
+	src: url("../fonts/Avenir.ttc");
 }
 @font-face {
 	font-family: 'foundry';
-	src: url("../../../fonts/FoundryMonoline=regular.otf");
+	src: url("../fonts/FoundryMonoline=regular.otf");
 }
 @font-face {
 	font-family: 'myanmar';
-	src: url("../../../fonts/Myanmar-MN.ttc");
+	src: url("../fonts/Myanmar-MN.ttc");
 }
 
 /* custom classes */
@@ -40,6 +40,10 @@
 	color: var(--psblue);
 	text-align: center;
 	border-radius: 25px;
+}
+
+.countydrop {
+	display: inline;
 }
 
 /* bootstrap style extensions */
