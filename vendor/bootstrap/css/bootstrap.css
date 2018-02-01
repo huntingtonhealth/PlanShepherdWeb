@@ -26,12 +26,6 @@
   --danger: #dc3545;
   --light: #f8f9fa;
   --dark: #343a40;
-/* PlanShepherd Colors */
-  --psred: #931621;
-  --psdark: #28464B;
-  --pslight: #53917E;
-  --psblue: #0C6291;
-  --pswhite: #FFFEF9;
 /* ------------------ */
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
@@ -40,41 +34,6 @@
   --breakpoint-xl: 1200px;
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-monospace: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-/* custom fonts */
-@font-face {
-	font-family: 'avenir';
-	src: url("../../../fonts/Avenir.ttc");
-}
-@font-face {
-	font-family: 'foundry';
-	src: url("../../../fonts/FoundryMonoline=regular.otf");
-}
-@font-face {
-	font-family: 'myanmar';
-	src: url("../../../fonts/Myanmar-MN.ttc");
-}
-
-/* custom classes */
-.home-form {
-	border-style: solid;
-	border-width: 2px;
-	border-color: var(--psblue);
-	border-radius: 25px;
-	color: var(--pswhite);
-	text-align: left;	
-}
-
-.bc-blue {
-	background-color: var(--psblue);
-}
-
-.screen-form {
-	background-color: var(--pswhite);
-	color: var(--psblue);
-	text-align: center;
-	border-radius: 25px;
 }
 
 @media print {
@@ -3698,10 +3657,6 @@ tbody.collapse.show {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
-}
-
-.navbar-brand-logo {
-	height: 3.5rem;
 }
 
 .navbar-brand:focus, .navbar-brand:hover {

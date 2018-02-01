@@ -1,9 +1,13 @@
+//////////////////////////
+/// Page Load Function ///
+//////////////////////////
 window.onload = function(){
-	
+		
 	var request = new XMLHttpRequest();
 		
-	var url = "http://localhost:3000/plans/quickscreen?zip=" + localStorage.getItem("qsZip") + "&county=22071&state=LA&ratingarea=1&age=29&tobacco=" + localStorage.getItem("qsSmoke") + "&dental=" + localStorage.getItem("qsDental")
-		
+	var url = "http://localhost:3000/plans/quickscreen?zip=" + localStorage.getItem("qsZip") + "&county=" + localStorage.getItem("qsCounty") + "&state=" + localStorage.getItem("qsState") + "&ratingarea=" + localStorage.getItem("qsRatingArea") + "&age=" + localStorage.getItem("qsAge") + "&tobacco=" + localStorage.getItem("qsSmoke") + "&dental=" + localStorage.getItem("qsDental")
+	
+	//readyState Listener for API request (makes work wait for API call to finish)	
 	request.onreadystatechange = function() {
     	if (this.readyState === 4 && this.status === 200) {
         	var response = JSON.parse(this.responseText);
@@ -11,12 +15,14 @@ window.onload = function(){
     	};
 	};
 		
+	//Open and send request	
 	request.open("GET", url, true);
 	request.send();
 	
     getElements = function(response) {
-		console.log(response);
 		var respData = response.data;
+		
+		//dynamically create table based on results
 		var tr = "<table><tr><th>Plan Marketing Name</th><th>Individual Rate</th></tr>";
 		for (var i = 0; i < respData.length; i++) {
 			tr += ("<tr>");

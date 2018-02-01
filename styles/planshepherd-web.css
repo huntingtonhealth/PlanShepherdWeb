@@ -1,0 +1,48 @@
+:root {
+	/* PlanShepherd Colors */
+	--psred: #931621;
+	--psdark: #28464B;
+	--pslight: #53917E;
+	--psblue: #0C6291;
+	--pswhite: #FFFEF9;
+}
+
+/* custom fonts */
+@font-face {
+	font-family: 'avenir';
+	src: url("../../../fonts/Avenir.ttc");
+}
+@font-face {
+	font-family: 'foundry';
+	src: url("../../../fonts/FoundryMonoline=regular.otf");
+}
+@font-face {
+	font-family: 'myanmar';
+	src: url("../../../fonts/Myanmar-MN.ttc");
+}
+
+/* custom classes */
+.home-form {
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--psblue);
+	border-radius: 25px;
+	color: var(--pswhite);
+	text-align: left;	
+}
+
+.bc-blue {
+	background-color: var(--psblue);
+}
+
+.screen-form {
+	background-color: var(--pswhite);
+	color: var(--psblue);
+	text-align: center;
+	border-radius: 25px;
+}
+
+/* bootstrap style extensions */
+.navbar-brand-logo {
+	height: 3.5rem;
+}

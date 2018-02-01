@@ -13,10 +13,13 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 	
-	<!-- FontAwesome CSS> -->
+	<!-- FontAwesome CSS -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
+    <!-- PlanShepherd CSS -->
+    <link href="styles/planshepherd-web.css" rel="stylesheet" type="text/css">
+	
+	<!-- Custom styles for this page -->
     <style>
       body {
         padding-top: 54px;
@@ -28,8 +31,6 @@
       }
 	 </style>
 	  
-	  <!-- Custom javascript for this page -->
-
   </head>
 
   <body>
@@ -80,6 +81,7 @@
 					</div>
 					<form class="screen-form m-2 p-2" action="javascript:quickSearchSubmit()">
 						What's your ZIP Code <input type="text" id="qsZip"><br><br>
+						<div id="countydrop"></div>
 						And your Date of Birth <input type="date" id="qsDOB"><br><br>
 						Are you a Smoker? <input type="checkbox" id="qsSmoke" value="Yes"> <br><br>
 						Are you looking for Dental-Only plans today? <input type="checkbox" id="qsDental" value="Yes"> <br><br>
@@ -134,7 +136,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  	<script src="index.js"></script>
+  	<script src="js/index.js"></script>
 	
 
   </body>
