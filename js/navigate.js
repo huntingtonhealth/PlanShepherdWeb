@@ -176,6 +176,26 @@ depClick.onclick = function() {
 
 function naviSubmit() {
 	formArray = $("#naviForm").serializeArray();
-	console.log(formArray);	
-
+	
+	ppArray = new Array();
+	ppArray.push(formArray[0]);
+	ppArray.push({
+		name: "naviState",
+		value: localStorage.getItem("qsState")
+	});
+	ppArray.push({
+		name: "naviCounty",
+		value: localStorage.getItem("qsCounty")
+	});
+	ppArray.push({
+		name: "naviRatingArea",
+		value: localStorage.getItem("qsRatingArea")
+	});
+	ppArray.push(formArray[1]);
+	ppArray.push(formArray[2]);
+	ppArray.push(formArray[3]);
+	// Load new page
+	//window.location.href = "navresults.html";
+	
+	return true;
 };

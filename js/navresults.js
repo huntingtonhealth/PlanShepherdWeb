@@ -3,64 +3,28 @@
 //////////////////////////
 window.onload = function(){
 	
-	//parse input array
-	arrayIterator = 0
-		
-	var ppData = new Array();
-	ppData.push(formArray[0]);
-    ppData.push({
-        name: "naviState", 
-        value: localStorage.getItem("qsState")
-    });
-    ppData.push({
-        name: "naviCounty", 
-        value: localStorage.getItem("qsCounty")
-    });
-    ppData.push({
-        name: "naviRatingArea", 
-        value: localStorage.getItem("qsRatingArea")
-    });
-	ppData.push(formArray[1]);
-	ppData.push(formArray[2]);
-	ppData.push(formArray[3]);
+	indivIndex = 0
+	console.log(localStorage.getItem("ppArray");
 	
-	if (document.getElementById("partDOB")) {
-		arrayIterator +=3;
-		var partData = new Array();
-		partData.push(formArray[0]);
-	    partData.push({
-	        name: "naviState", 
-	        value: localStorage.getItem("qsState")
-	    });
-	    partData.push({
-	        name: "naviCounty", 
-	        value: localStorage.getItem("qsCounty")
-	    });
-	    partData.push({
-	        name: "naviRatingArea", 
-	        value: localStorage.getItem("qsRatingArea")
-	    });
-		partData.push(formArray[arrayIterator+1]);
-		partData.push(formArray[arrayIterator+2]);
-		partData.push(formArray[arrayIterator+3]);
-	}
+	//search for primary person data
+	var searchZip = naviArray[indivIndex];
+	var searchState = localStorage.getItem("qsState");
+	var searchCounty = localStorage.getItem("qsCounty");
+	var searchRatingArea = localStorage.getItem("qsRatingArea");
+	var searchAge = getAge(naviArray[indivIndex + 2]);
+	var searchSmoke = naviArray[indivIndex + 3];	
+	var ppJSON = makeQSCall(searchZip, searchState, searchCounty, searchRatingArea, searchAge, searchSmoke);
 	
-	if (document.getElementById("depDOB")) {
-		var nodesSameClass = document.getElementsByClassName("depDOB").length;
-		
-		for (var i = 0; i < nodesSameClass; i++) {
-		}
-		 
-	}
-	
-	console.log(ppData);
-	console.log(partData);
-	
-	// set up requests
+};
+
+//////////////////////
+///Helper Functions///
+//////////////////////
+function makeQSCall(zip, state, county, ratingArea, age, smoke) {
 		
 	var request = new XMLHttpRequest();
 		
-	var url = "http://localhost:3000/plans/quickscreen?zip=" + localStorage.getItem("qsZip") + "&county=" + localStorage.getItem("qsCounty") + "&state=" + localStorage.getItem("qsState") + "&ratingarea=" + localStorage.getItem("qsRatingArea") + "&age=" + localStorage.getItem("qsAge") + "&tobacco=" + localStorage.getItem("qsSmoke") + "&dental=" + localStorage.getItem("qsDental")
+	var url = "http://localhost:3000/plans/quickscreen?zip=" + zip + "&county=" + county + "&state=" + state + "&ratingarea=" + ratingArea + "&age=" + age + "&tobacco=" + smoke + "&dental=No";
 	
 	//readyState Listener for API request (makes work wait for API call to finish)	
 	request.onreadystatechange = function() {
@@ -74,19 +38,22 @@ window.onload = function(){
 	request.open("GET", url, true);
 	request.send();
 	
-    getElements = function(response) {
-		var respData = response.data;
-		
-		//dynamically create table based on results
-		var tr = "<table><tr><th>Plan Marketing Name</th><th>Individual Rate</th></tr>";
-		for (var i = 0; i < respData.length; i++) {
-			tr += ("<tr>");
-			tr += ("<td>" + respData[i].planmarketingname + "</td>");
-			tr += ("<td>" + respData[i].individualrate + "</td>");
-			tr += ("</tr>");
-		};
-		tr += "</table>"
-		
-		document.getElementById("tabledata").innerHTML = tr;
-    };	
+	getElements = function(response) {
+		data = response.data;
+		console.log(data);
+		return data;
+	};
+};
+
+// Function to convert Date of Birth entry to Age
+function getAge(dob) {
+    var today = new Date();
+    var birthDate = new Date(dob);
+    var age = today.getFullYear() - birthDate.getFullYear();
+	var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+         age--;
+     };
+	 
+	return age;
 };
