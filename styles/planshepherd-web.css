@@ -5,6 +5,11 @@
 	--pslight: #53917E;
 	--psblue: #0C6291;
 	--pswhite: #FFFEF9;
+	--psbluetrans: rgba(12, 98, 145, 0.3);
+	--psredtrans: rgba(147, 22, 33, 0.3);
+	--psdarktrans: rgba(40, 70, 75, 0.3);
+	
+	
 }
 
 /* custom fonts */
@@ -21,7 +26,32 @@
 	src: url("../fonts/Myanmar-MN.ttc");
 }
 
-/* custom classes */
+/* general custom classes */
+.bc-blue {
+	background-color: var(--psblue);
+}
+
+.bc-red-trans {
+	background-color: var(--psredtrans);
+}
+
+.bc-white {
+	background-color: var(--pswhite);
+}
+
+.countydrop {
+	display: inline;
+}
+
+.modal-container {
+	white-space: nowrap;
+}
+
+.inline {
+	display: inline;
+}
+
+/* custom classes for index */
 .home-form {
 	border-style: solid;
 	border-width: 2px;
@@ -31,10 +61,6 @@
 	text-align: left;	
 }
 
-.bc-blue {
-	background-color: var(--psblue);
-}
-
 .screen-form {
 	background-color: var(--pswhite);
 	color: var(--psblue);
@@ -42,8 +68,43 @@
 	border-radius: 25px;
 }
 
-.countydrop {
-	display: inline;
+/* custom classes for navigate */
+.modal-form {
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--psbluetrans);
+	border-radius: 25px;
+	color: var(--psdark);
+	text-align: center;
+}
+
+.innerbox {
+	background-color: var(--pswhite);
+	color: var(--psdark);
+	text-align: center;
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--psdarktrans);
+	border-radius: 25px;
+}
+
+.modal1{
+	display: inline-block;
+	position: relative;
+}
+
+.modal2, .modal3, .modal4, .modal5, .modal6, .modal7 {
+	display: inline-block;
+	position: relative;
+	opacity: 0;
+	white-space: normal;
+}
+
+.modal3Header {
+	text-align: left;
+	font-style: italic;
+	text-decoration: underline;
+	font-weight: bold;
 }
 
 /* bootstrap style extensions */

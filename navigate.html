@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PlanShepherd</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+	
+	<!-- FontAwesome CSS -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- PlanShepherd CSS -->
+    <link href="styles/planshepherd-web.css" rel="stylesheet" type="text/css">
+	
+	<!-- Custom styles for this page -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+	 </style>
+	  
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-grad fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+			<img class="navbar-brand-logo" src="img/final-planshepherd.png" alt="PlanShepherd logo">
+		</a>
+		<!--
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+		-->
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+	<div class="container">
+    	<div class="row">
+        	<div class="col-lg-12 text-center mt-5 mb-5 modal-container">
+				<form action="javascript:naviSubmit()" id="naviForm" name="naviForm">
+					<!-- Zip Modal -->
+					<div id="modal1" class="modal1 modal-form col-lg-12 bc-red-trans">
+						<div class="innerbox m-2 p-2">
+							<div class="mt-2 ml-3 mr-3">
+								<h3>Let's get started!</h3>
+							</div>
+							<div class="ml-3 mr-3">
+								<p> First, tell us your home ZIP code </p>
+							</div>
+							<input type="text" id="naviZip" class="naviZip" name="naviZip">
+							<div class="countydrop" id="countydrop"></div><br /><br />
+							<button class="next" type="button"> Next </button>
+						</div>
+					</div>
+			
+					<!-- Primary Person Modal -->
+					<div id="modal2" class="modal2 modal-form col-lg-12 bc-red-trans">
+						<div class="innerbox m-2 p-2">
+							<div class="mt-2 ml-3 mr-3">
+								<h3>Tell us a little about you</h3>
+							</div>
+							What is your name (this field is optional)? <input type="text" id="ppName" class="ppName" name="ppName"><br /><br />
+							...and your date of birth? <input type="date" id="ppDOB" class="ppDOB" name="ppDOB"><br /><br />
+							Are you a smoker? <select id="ppSmoke" class="ppSmoke" name="ppSmoke">
+								<option value="No">No</option>>
+								<option value="Yes">Yes</option>
+							</select><br /><br />
+							<button type="button" class="back"> Back </button> <button type="button" class="next"> Next </button>
+						</div>
+					</div>
+					
+					<!-- Family Comp Modal -->
+					<div id="modal3" class="modal3 modal-form col-lg-12 bc-red-trans">
+						<div class="innerbox m-2 p-2">
+							<div class="mt-2 ml-3 mr-3">
+								<h3>Who else in your family needs health insurance?</h3><br />
+							</div>
+							<div class="modal3Header"> Partner: </div>
+							<div class="partner" id="partner">
+								<button class="partnerbutton" id="partnerbutton" type="button"> My Spouse / Partner </button>
+								<hr />
+							</div>
+							<div class="modal3Header"> Dependent(s): </div>
+							<div class="dependent" id="dependent">
+								<div class="depTable" id="depTable"></div>
+								<button class="depbutton" id="depbutton" type="button"> My dependents </button>
+							</div><hr />
+							<button type="button" class="back"> Back </button> <button type="button" class="next"> Next </button>
+						</div>
+					</div>	
+					
+					<!-- Income Screening Modal
+					<div id="modal4" class="modal4 modal-form col-lg-12 bc-red-trans">
+						<div class="innerbox m-2 p-2">
+							<div class="mt-2 ml-3 mr-3">
+								<h3>Before we go any further...</h3>
+							</div>
+							<div class="ml-3 mr-3">
+								<p> ... let's see if you qualify for financial assistance. </p>
+								<p> How much does everyone in your household make in a year? <br />
+								This includes everyone you entered on the previous page </p>
+								<input type="text" id="income"><br /><br />
+							</div>
+
+							<button type="button" class="back"> Back </button> <button type="button" class="next"> Next </button>
+						</div>
+					</div>
+						
+					<!-- describe medical information module
+					
+					<!-- Doctors Modal
+					<div id="modal5" class="modal5 modal-form col-lg-12 bc-red-trans">
+						<div class="innerbox m-2 p-2">
+							<div class="mt-2 ml-3 mr-3">
+								<h3>Medical Information</h3>
+							</div>
+							<div class="ml-3 mr-3">
+								<p> Does anyone in your family see a doctor or other medical professional regularly that they’d like to keep seeing? </p>
+							</div>
+							<div class="provider" id="provider">
+								<button id="provider" type="button"> Yes! Add a provider. </button>
+							</div><hr />
+							<button type="button" class="back"> Back </button> <button type="button" class="next"> Nope! Let's keep going. </button>
+						</div>
+					</div>
+					
+					<!-- Medications Modal
+					<div id="modal6" class="modal6 modal-form col-lg-12 bc-red-trans">
+						<div class="innerbox m-2 p-2">
+							<div class="mt-2 ml-3 mr-3">
+								<h3>Medical Information</h3>
+							</div>
+							<div class="ml-3 mr-3">
+								<p> Does anyone in your family take a prescription medication regularly? </p>
+							</div>
+							<div class="medication" id="medication">
+								<button id="medication" type="button"> Yes! Add a medication. </button>
+							</div><hr />
+							<button type="button" class="back"> Back </button> <button type="button" class="next"> Nope! Let's keep going. </button>
+						</div>
+					</div>
+					
+					<!-- See the Doctor Modal -->
+					<div id="modal4" class="modal7 modal-form col-lg-12 bc-red-trans">
+						<div class="innerbox m-2 p-2">
+							<div class="mt-2 ml-3 mr-3">
+								<h3>Medical Information</h3>
+							</div>
+							<div class="ml-3 mr-3">
+								<p> Not including regular checkups, how often does each of your family members see a doctor? </p>
+							</div>
+							<button type="button" class="back"> Back </button> <button> Next </button>
+						</div>
+					</div>
+					
+					<!-- describe financial preferences module -->
+								
+				</form>
+			</div>
+      	</div>
+    </div>
+	
+    <!-- Footer -->
+    <footer class='footer'>
+        <div class="container">
+			<div class="row">
+				<div class="col-foot-11 text-center">
+        			PlanShepherd is a digital service of Huntington Health Innovations - Boston, MA. <br />
+        		</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-foot-21 text-center list-inline">
+					<h5>Contact Us</h5>
+			        <p><a href="mailto:team@huntingtonhealth.org"> Via Email </a></p>
+                </div>
+				
+				<!--
+				<div class="col-foot-22 text-center list-inline">
+			        <h5>Around the Web</h5>
+			        <ul class="list-inline">
+			            <li>
+			                <a href="https://twitter.com/HHIBoston" class="btn-social btn-outline"><span class="sr-only">Twitter</span><i class="fa fa-fw fa-twitter"></i></a>
+			            </li>
+			            <li>
+			                <a href="https://www.linkedin.com/company-beta/11184927/" class="btn-social btn-outline"><span class="sr-only">Linked In</span><i class="fa fa-fw fa-linkedin"></i></a>
+			            </li>
+			            <!-- <li>
+			                <a href="#" class="btn-social btn-outline"><span class="sr-only">Git Hub</span><i class="fa fa-fw fa-github"></i></a>
+			            </li>
+			        </ul>
+				</div>
+			-->
+			</div>
+			<div class="row">
+				<div class="col-foot-31 text-center">
+					&copy; Huntington Health Innovations, Ltd. 2017
+				</div>
+			</div>
+        </div>
+
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  	<script src="js/navigate.js"></script>
+	
+
+  </body>
+
+</html>

@@ -71,36 +71,13 @@
 	<div class="container">
     	<div class="row">
 	        <div class="col-lg-6 text-center mt-5 mb-5">
-				<div class="home-form bc-blue">
-					<div class="row mt-2 ml-3 mr-3">
-						<h3>Quick-Screen</h3>
-					</div>
-					<div class="row ml-3 mr-3">
-						<p>This tool will show you how much it could cost to insure 1 person. <br>
-						It does not include any government subsidies you may be eligible for. </p>
-					</div>
-					<form class="screen-form m-2 p-2" action="javascript:quickSearchSubmit()">
-						What's your ZIP Code <input type="text" id="qsZip">
-						<div class="countydrop" id="countydrop"></div><br /><br />
-						And your Date of Birth <input type="date" id="qsDOB"><br /><br />
-						Are you a Smoker? <input type="checkbox" id="qsSmoke" value="Yes"> <br /><br />
-						Are you looking for Dental-Only plans today? <input type="checkbox" id="qsDental" value="Yes"> <br /><br />
-						<input type="submit">
-					</form>
-				</div>
-	        </div>
-	        <div class="col-lg-6 text-center mt-5 mb-5">
-				<div class="home-form bc-blue">
-					<div class="row mt-2 ml-3 mr-3">
-						<h3>Navigate</h3>
-					</div>
-					<div class="row ml-3 mr-3">
-						<p>This tool will help you choose a plan for you and your family! <br>
-					</div>
-					<form class="screen-form m-2 p-2" action="javascript:navigateSubmit()">
-						<input type="submit" value="Help me Obi Wan Kenobi!">
-					</form>
-				</div>
+				<table>
+					<tr>
+						<td> Name: <input type="text" id="partName"> </td>
+						<td> Date of Birth: <input type="date" id="partDOB"> </td>
+						<td> Smoker? <input type="checkbox" id="ppSmoke" value="Yes"> </td>
+					</tr>
+				</table>
 	        </div>
       	</div>
     </div>

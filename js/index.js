@@ -80,8 +80,10 @@ document.getElementById("countydrop").onchange = function() {
 	};
 };
 
-//////////////////
-///Submit Function
+/////////////////////
+///Submit Function///
+/////////////////////
+
 function quickSearchSubmit() {
 	// Getting the values of your text input
     var qsZip = document.getElementById("qsZip").value;
@@ -106,6 +108,15 @@ function quickSearchSubmit() {
 	
 	// Load new page
 	window.location.href = "quicksearch.html";
+	
+	return true;
+};
+
+function navigateSubmit() {
+	// Getting the values of your text input
+	
+	// Load new page
+	window.location.href = "navigate.html";
 	
 	return true;
 };
