@@ -34,6 +34,31 @@ function getAge(dob) {
 	return age;
 };
 
+function callQsService(age, tobacco){
+		
+	var request = new XMLHttpRequest();
+		
+	var url = "http://localhost:3000/plans/quickscreen?zip=" + localStorage.getItem("qsZip") + "&county=" + localStorage.getItem("qsCounty") + "&state=" + localStorage.getItem("qsState") + "&ratingarea=" + localStorage.getItem("qsRatingArea") + "&age=" + age + "&tobacco=" + tobacco + "&dental=No";
+	
+	//readyState Listener for API request (makes work wait for API call to finish)	
+	request.onreadystatechange = function() {
+    	if (this.readyState === 4 && this.status === 200) {
+        	var response = JSON.parse(this.responseText);
+        	getElements(response);
+    	};
+	};
+		
+	//Open and send request	
+	request.open("GET", url, true);
+	request.send();
+	
+    getElements = function(response) {
+		var respData = response.data;
+		console.log(respData);
+		return respData;
+    };	
+};
+
 //////////////////////
 ///Modal Navigation///
 //////////////////////
@@ -176,24 +201,38 @@ depClick.onclick = function() {
 
 function naviSubmit() {
 	formArray = $("#naviForm").serializeArray();
+	formIterator = 0;
+	console.log(formArray);
 	
-	ppArray = new Array();
-	ppArray.push(formArray[0]);
-	ppArray.push({
-		name: "naviState",
-		value: localStorage.getItem("qsState")
-	});
-	ppArray.push({
-		name: "naviCounty",
-		value: localStorage.getItem("qsCounty")
-	});
-	ppArray.push({
-		name: "naviRatingArea",
-		value: localStorage.getItem("qsRatingArea")
-	});
-	ppArray.push(formArray[1]);
-	ppArray.push(formArray[2]);
-	ppArray.push(formArray[3]);
+	//call service for pp
+	ppResp = callQsService(getAge(formArray[2].value), formArray[3].value);
+	
+	//call service for partner
+	if (document.getElementById("partDOB")) {
+		formIterator += 1;
+		partResp = callQsService(getAge(formArray[5].value), formArray[6].value);
+	};
+	
+	//call service for dependents
+	if (document.getElementById("depDOB")) {
+		var depCt = document.getElementsByClassName("depDOB").length;
+		console.log(depCt);
+		formIterator += 1;
+		depResp1 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+		if (depCt >= 2) {
+			formIterator += 1;
+			depResp2 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+			if (depCt >= 3) {
+				formIterator += 1;
+				depResp3 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+				if (depCt >= 4) {
+					formIterator += 1;
+					depResp4 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+				};
+			};
+		};
+	};
+		
 	// Load new page
 	//window.location.href = "navresults.html";
 	
