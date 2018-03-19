@@ -51,6 +51,10 @@
 	display: inline;
 }
 
+.tabledata, td, th {
+	border: 1px solid black;
+}
+
 /* custom classes for index */
 .home-form {
 	border-style: solid;
