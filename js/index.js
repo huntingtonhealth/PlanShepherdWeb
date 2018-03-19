@@ -29,9 +29,14 @@ function getAge(dob) {
 	var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
-     };
+    };
 	 
-	return age;
+	var strAge = age.toString();
+	if (age <= 14) {
+		strAge = "0-14";
+	}
+	 
+	return strAge;
 };
 
 //////////////////////////

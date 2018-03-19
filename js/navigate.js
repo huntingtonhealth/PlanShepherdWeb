@@ -29,34 +29,14 @@ function getAge(dob) {
 	var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
          age--;
-     };
+    };
 	 
-	return age;
-};
-
-function callQsService(age, tobacco){
-		
-	var request = new XMLHttpRequest();
-		
-	var url = "http://localhost:3000/plans/quickscreen?zip=" + localStorage.getItem("qsZip") + "&county=" + localStorage.getItem("qsCounty") + "&state=" + localStorage.getItem("qsState") + "&ratingarea=" + localStorage.getItem("qsRatingArea") + "&age=" + age + "&tobacco=" + tobacco + "&dental=No";
-	
-	//readyState Listener for API request (makes work wait for API call to finish)	
-	request.onreadystatechange = function() {
-    	if (this.readyState === 4 && this.status === 200) {
-        	var response = JSON.parse(this.responseText);
-        	getElements(response);
-    	};
-	};
-		
-	//Open and send request	
-	request.open("GET", url, true);
-	request.send();
-	
-    getElements = function(response) {
-		var respData = response.data;
-		console.log(respData);
-		return respData;
-    };	
+	var strAge = age.toString();
+	if (age <= 14) {
+		strAge = "0-14";
+	}
+	 
+	return strAge;
 };
 
 //////////////////////
@@ -202,39 +182,144 @@ depClick.onclick = function() {
 function naviSubmit() {
 	formArray = $("#naviForm").serializeArray();
 	formIterator = 0;
-	console.log(formArray);
+	
+	parseArray(formArray);
+			
+	function parseArray(formArray) {
+		respArray = buildResps(formArray, function(respArray){
+			
+			var indivCt = respArray.length;
+			if (document.getElementById("partDOB")) {
+				var partCt = 1;
+				var depCt = indivCt-2;
+			}; else {
+				var partCt = 0;
+				var depCt = indivCt-1;
+			};
+			
+			var initPlanCt = respArray[0].length;
+			var availablePlans = respArray[0];
+			
+			for (var i=0; i < initPlanCt; i++){
+				for (var j = 1; j < indivCt; j++){
+					famPlanCt = respArray[j].length;
+					for (var k = 0; k < famPlanCt; k++){
+						if (respArray[0][i] == respArray[j][k]){
+							availablePlans.splice(i, 1);
+						}
+					};
+				};
+			};
+			
+			
+			
+		});
+	};
+};		
+////	
+//Building responses for each individual
+////
+function buildResps(formArray, callback) {
+	
+	var indivCt = ((formArray.length - 1) / 3);
+	var counter = 0;
+	var respArray = new Array();
 	
 	//call service for pp
-	ppResp = callQsService(getAge(formArray[2].value), formArray[3].value);
-	
+	var ppResp = callQsService(getAge(formArray[2].value), formArray[3].value, function(respData){
+		counter += 1;
+		respArray.push(respData);
+		if (counter == indivCt) {
+			callback(respArray);
+			return true;
+		};
+	});
+
 	//call service for partner
 	if (document.getElementById("partDOB")) {
 		formIterator += 1;
-		partResp = callQsService(getAge(formArray[5].value), formArray[6].value);
+		var partResp = callQsService(getAge(formArray[5].value), formArray[6].value, function(respData){
+			counter += 1;
+			respArray.push(respData);	
+			if (counter == indivCt) {
+				callback(respArray);
+				return true;
+			};
+		});
 	};
-	
+
 	//call service for dependents
 	if (document.getElementById("depDOB")) {
 		var depCt = document.getElementsByClassName("depDOB").length;
-		console.log(depCt);
-		formIterator += 1;
-		depResp1 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+		formIterator += 1;		
+		var depResp1 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value, function(respData){
+			counter += 1;
+			respArray.push(respData);	
+			if (counter == indivCt) {
+				callback(respArray);
+				return true;
+			};
+		});
+	
 		if (depCt >= 2) {
 			formIterator += 1;
-			depResp2 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+			var depResp2 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value, function(respData){
+				counter += 1;
+				respArray.push(respData);	
+				if (counter == indivCt) {
+					callback(respArray);
+					return true;
+				};
+			});
+		
 			if (depCt >= 3) {
-				formIterator += 1;
-				depResp3 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+				formIterator += 1;				
+				var depResp3 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value, function(respData){
+					counter += 1;
+					respArray.push(respData);	
+					if (counter == indivCt) {
+						callback(respArray);
+						return true;
+					};
+				});
+			
 				if (depCt >= 4) {
-					formIterator += 1;
-					depResp4 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value);
+					formIterator += 1;					
+					var depResp4 = callQsService(getAge(formArray[3*formIterator+2].value), formArray[3*formIterator+3].value, function(respData){
+						counter += 1;
+						respArray.push(respData);	
+						if (counter == indivCt) {
+							callback(respArray);
+							return true;
+						};
+					});
 				};
 			};
 		};
 	};
-		
-	// Load new page
-	//window.location.href = "navresults.html";
+};
+
+function callQsService(age, tobacco, callback){
 	
-	return true;
+	var request = new XMLHttpRequest();
+	
+	var url = "http://localhost:3000/plans/quickscreen?zip=" + localStorage.getItem("qsZip") + "&county=" + localStorage.getItem("qsCounty") + "&state=" + localStorage.getItem("qsState") + "&ratingarea=" + localStorage.getItem("qsRatingArea") + "&age=" + age + "&tobacco=" + tobacco + "&dental=No";
+
+	//readyState Listener for API request (makes work wait for API call to finish)	
+	request.onreadystatechange = function() {
+    	if (this.readyState === 4 && this.status === 200) {
+        	var response = JSON.parse(this.responseText);
+        	getElements(response);
+    	};
+	};
+	
+	//Open and send request	
+	request.open("GET", url, true);
+	request.send();
+
+    getElements = function(response) {
+		var respData = response.data;
+		callback(respData);
+		return true;
+    };	
 };
