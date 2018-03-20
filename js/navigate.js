@@ -180,81 +180,18 @@ depClick.onclick = function() {
 /////////////////////
 
 function naviSubmit() {
-	formArray = $("#naviForm").serializeArray();
 	formIterator = 0;
 	
+	// This section includes a 4-layer callback function
+	// buildResps takes formArray data and makes API calls using the QS Service, returns 2d array with plan data by individual dims
+	// QS service makes API call and returns individual-level plan data
+	// parseArray takes 2d array from buildResps and compiles into family-level data
+	// display parses the family-level data and displays to the user.
+	formArray = $("#naviForm").serializeArray();
 	parseArray(formArray);
+	
 };
-		
-function display(displayData){
-	console.log(displayData);
-	
-	var tr = "<table><tr><th>Plan Marketing Name</th><th>Individual Rate</th></tr>";
-	for (var i = 0; i < displayData.length; i++) {
-		tr += ("<tr>");
-		tr += ("<td>" + displayData[i].planid + "</td>");
-		tr += ("<td>" + displayData[i].rate + "</td>");
-		tr += ("</tr>");
-	};
-	tr += "</table>"
-	
-	document.getElementById("tabledata").innerHTML = tr;
-}
 
-function parseArray(formArray) {
-	respArray = buildResps(formArray, function(respArray){
-		
-		var indivCt = respArray.length;
-		if (document.getElementById("partDOB")) {
-			var partCt = 1;
-			var depCt = indivCt-2;
-		} else {
-			var partCt = 0;
-			var depCt = indivCt-1;
-		};
-		
-		//checks to see what plans are available to all individuals
-		var initPlanCt = respArray[0].length;
-		var availablePlans = respArray[0];
-		var displayData = new Array();
-		
-		for (var i=0; i < initPlanCt; i++){
-			var planIds = new Array();
-			for (var j = 1; j < indivCt; j++){
-				famPlanCt = respArray[j].length;
-				for (var k = 0; k < famPlanCt; k++){
-					planIds.push(respArray[j][k].id);
-				};
-			};
-			if (planIds.includes(availablePlans[i].id) == -1){
-				availablePlans.splice(i, 1);
-			};
-		};
-		
-		//creates an array of data to be displayed and sums totals for each plan
-		var availablePlansCt = availablePlans.length;
-		var displayData = new Array();
-		
-		for (var i = 0; i < availablePlansCt; i++) {
-			rateSum = parseFloat(availablePlans[i].individualrate);
-			for (var j = 1; j < indivCt; j++){
-				famPlanCt = respArray[j].length;
-				for (var k = 0; k < famPlanCt; k++){
-					if (availablePlans[i].planid == respArray[j][k].planid){
-						rateSum += parseFloat(respArray[j][k].individualrate);
-					}
-				};
-			};
-			displayData.push({
-				planid: availablePlans[i].planid,
-				rate: rateSum.toFixed(2)
-			});
-		};
-	
-		display(displayData);
-	});
-};
-		
 ////	
 //Building responses for each individual
 ////
@@ -361,4 +298,73 @@ function callQsService(age, tobacco, callback){
 		callback(respData);
 		return true;
     };	
+};
+
+function parseArray(formArray) {
+	respArray = buildResps(formArray, function(respArray){
+		
+		var indivCt = respArray.length;
+		if (document.getElementById("partDOB")) {
+			var partCt = 1;
+			var depCt = indivCt-2;
+		} else {
+			var partCt = 0;
+			var depCt = indivCt-1;
+		};
+		
+		//checks to see what plans are available to all individuals
+		var initPlanCt = respArray[0].length;
+		var availablePlans = respArray[0];
+		var displayData = new Array();
+		
+		for (var i=0; i < initPlanCt; i++){
+			var planIds = new Array();
+			for (var j = 1; j < indivCt; j++){
+				famPlanCt = respArray[j].length;
+				for (var k = 0; k < famPlanCt; k++){
+					planIds.push(respArray[j][k].id);
+				};
+			};
+			if (planIds.includes(availablePlans[i].id) == -1){
+				availablePlans.splice(i, 1);
+			};
+		};
+		
+		//creates an array of data to be displayed and sums totals for each plan
+		var availablePlansCt = availablePlans.length;
+		var displayData = new Array();
+		
+		for (var i = 0; i < availablePlansCt; i++) {
+			rateSum = parseFloat(availablePlans[i].individualrate);
+			for (var j = 1; j < indivCt; j++){
+				famPlanCt = respArray[j].length;
+				for (var k = 0; k < famPlanCt; k++){
+					if (availablePlans[i].planid == respArray[j][k].planid){
+						rateSum += parseFloat(respArray[j][k].individualrate);
+					}
+				};
+			};
+			displayData.push({
+				planid: availablePlans[i].planid,
+				rate: rateSum.toFixed(2)
+			});
+		};
+	
+		display(displayData);
+	});
+};
+
+function display(displayData){
+	console.log(displayData);
+	
+	var tr = "<table><tr><th>Plan Marketing Name</th><th>Individual Rate</th></tr>";
+	for (var i = 0; i < displayData.length; i++) {
+		tr += ("<tr>");
+		tr += ("<td>" + displayData[i].planid + "</td>");
+		tr += ("<td>" + displayData[i].rate + "</td>");
+		tr += ("</tr>");
+	};
+	tr += "</table>"
+	
+	document.getElementById("tabledata").innerHTML = tr;
 };

@@ -8,8 +8,7 @@
 	--psbluetrans: rgba(12, 98, 145, 0.3);
 	--psredtrans: rgba(147, 22, 33, 0.3);
 	--psdarktrans: rgba(40, 70, 75, 0.3);
-	
-	
+	--pswhitetrans: rgba(255, 254, 249, 0.7);
 }
 
 /* custom fonts */
@@ -35,6 +34,10 @@
 	background-color: var(--psredtrans);
 }
 
+.bc-blue-trans {
+	background-color: var(--psbluetrans);
+}
+
 .bc-white {
 	background-color: var(--pswhite);
 }
@@ -49,10 +52,6 @@
 
 .inline {
 	display: inline;
-}
-
-.tabledata, td, th {
-	border: 1px solid black;
 }
 
 /* custom classes for index */
@@ -109,6 +108,36 @@
 	font-style: italic;
 	text-decoration: underline;
 	font-weight: bold;
+}
+
+/* custom classes for results */
+.results {
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--psblue);
+	border-radius: 25px;
+	color: var(--psdark);
+}
+
+.results-table {
+	margin: auto;
+	table-layout: fixed;
+}
+
+.first-result {
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--psred);
+	border-radius: 10px;
+	background-color: var(--pswhite);
+}
+
+.other-result {
+	border-style: solid;
+	border-width: 2px;
+	border-color: var(--psblue);
+	border-radius: 10px;
+	background-color: var(--pswhitetrans);
 }
 
 /* bootstrap style extensions */
