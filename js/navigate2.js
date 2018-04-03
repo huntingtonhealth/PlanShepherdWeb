@@ -107,7 +107,7 @@ window.onload = function(){
 			curModal.style.opacity = 0;		
 
 	// Bump all modals to the left			
-			for (var i = 1; i <= 5; i++) {
+			for (var i = 1; i <= 10; i++) {
 				var modalStr = "modal" + i;
 				var modal = document.getElementById(modalStr);
 				modal.style.transition = "all 1s";
@@ -136,7 +136,7 @@ window.onload = function(){
 			curModal.style.opacity = 0;		
 		
 	// Bump all modals to the right							
-			for (var i = 1; i <= 5; i++) {
+			for (var i = 1; i <= 10; i++) {
 				var nextModalStr = "modal" + i;
 				var nextModal = document.getElementById(nextModalStr);
 				nextModal.style.transition = "all 1s";
@@ -153,7 +153,32 @@ window.onload = function(){
 			curModal.style.opacity = 1;		
 		
 		}
-	
+	// If clicked button is to skip the medical info module, go to the next module
+		else if (target.className.match(/medInfoSkip/))
+		{
+			var curModalStr = "modal" + modalNo;
+			var curModal = document.getElementById(curModalStr);
+			curModal.style.transition = "all 1s";
+			curModal.style.opacity = 0;		
+		
+	// Bump all modals to the right	3 times
+			for (var i = 1; i <= 10; i++) {
+				var nextModalStr = "modal" + i;
+				var nextModal = document.getElementById(nextModalStr);
+				nextModal.style.transition = "all 1s";
+				nextModal.style.transform = "translateX(-" + (modalNo+3)*100 + "%)";
+			}
+
+	// De-increment the modal number
+			modalNo += 4;
+		
+	// Make current modal appear
+			var curModalStr = "modal" + modalNo;
+			var curModal = document.getElementById(curModalStr);
+			curModal.style.transition = "all 1s";
+			curModal.style.opacity = 1;			
+		}
+		
 		return false;
 	}
 };
@@ -581,7 +606,7 @@ function render(planData){
 				"<tr><td colspan='3' class='text-left'><h5><u>Monthly Premium</u></h5>" +
 					"<h5 class='inline'>$" + planData.rate + "</h5> per month </td>" +
 					"<td colspan='3' class='text-left'><h5><u>Deductible</u></h5>" +
-					"<h5 class='inline'>" + planData.deductible + "</h5> per year </td>" +
+					"<h5 class='inline'>" + planData.deductible + "</h5></td>" +
 					"<td colspan='3' class='text-left'><h5><u>Maximum Out of Pocket</u></h5>" +
 				    "<h5 class='inline'>" + planData.moop + "</h5> per year </td>" +
 					"<td colspan='3' class='text-right'><h5><u>Estimated Yearly Expense</u></h5>" +

@@ -50,20 +50,48 @@ window.onload = function(){
 
 function render(planData){
 	resp = new String();
+	
+	if (localStorage.getItem("qsSmoke") == "No") {
+		rate = planData.individualrate
+		yrRate = planData.individualrate*12;
+	} else {
+		rate = planData.individualtobaccorate
+		yrRate = planData.individualtobaccorate*12;
+	}
+	
+	
+	var mded = planData.mehbdedinntier1individual
+	var mmoop = planData.mehbinntier1individualmoop
+	var tded = planData.tehbdedinntier1individual
+	var tmoop = planData.tehbinntier1individualmoop
+	
+	if (tded) {
+		ded = tded
+	} else {
+		ded = mded
+	}
+	
+	if (tmoop) {
+		moop = tmoop
+	} else {
+		moop = mmoop
+	}
+	
+	
 	resp += ("<table class='results-table col-lg-12 mt-2'>" +
 				"<tr><td colspan='12' class='text-left'><h3><b>" + planData.planmarketingname + "</b></h3><hr /></td></tr>" +
 				"<tr><td colspan='3' class='text-left'><h5><u>Monthly Premium</u></h5>" +
-					"<h5 class='inline'>$" + planData.individualrate + "</h5> per month </td>" +
+					"<h5 class='inline'>$" + rate + "</h5> per month </td>" +
 					"<td colspan='3' class='text-left'><h5><u>Deductible</u></h5>" +
-					"<h5 class='inline'>" + planData.individualrate + "</h5></td>" +
+					"<h5 class='inline'>" + ded + "</h5></td>" +
 					"<td colspan='3' class='text-left'><h5><u>Maximum Out of Pocket</u></h5>" +
-				    "<h5 class='inline'>" + planData.individualrate + "</h5> per year </td>" +
+				    "<h5 class='inline'>" + moop + "</h5> per year </td>" +
 					"<td colspan='3' class='text-right'><h5><u>Estimated Yearly Expense</u></h5>" +
-				    "<h5 class='inline'>" + planData.individualrate + "</h5> in 2019 </td></tr>" +
+				    "<h5 class='inline'>" + yrRate.toFixed(2) + "</h5> in 2019 </td></tr>" +
 				"<tr><td colspan='12'><br /></td></tr>" +
-				"<tr><td colspan='4'><h6><u>Includes Prescription Drug Coverage</u></h6><h6>Yes</h6></td>" +
-					"<td colspan='4'><h6><u>Includes Dental Coverage</u></h6><h6>Yes</h6></td>" +
-					"<td colspan='4'><h6><u>Includes Vision Coverage</u></h6><h6>Yes</h6></td></tr>" +
+				"<tr><td colspan='4'><h6><u>Plan Type</u></h6><h6>" + planData.plantype + "</h6></td>" +
+					"<td colspan='4'><h6><u>Metal Level</u></h6><h6>" + planData.metallevel + "</h6></td>" +
+					"<td colspan='4'><h6><u>Is HSA Eligible?</u></h6><h6>" + planData.ishsaeligible + "</h6></td></tr>" +
 				"<tr><td colspan='12' class='text-right'><button class='m-2'>See More About This Plan</button></td></tr>" +
 			"</table>");
 	return resp;
